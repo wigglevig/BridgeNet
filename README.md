@@ -1,77 +1,80 @@
-# 🖧 BridgeNet - A Graphical UI for Gnirehtet Reverse Tethering
+# 🖧 BridgeNet
 
-BridgeNet is a modern, user-friendly desktop application that provides a graphical interface for [Gnirehtet](https://github.com/Genymobile/gnirehtet), allowing Android users to reverse-tether and share a PC's internet connection with their device via USB—ideal for restricted or unstable campus Wi-Fi environments.
----
+**A Graphical Interface for Reverse Tethering (Gnirehtet)**
 
-## 🚀 Features
+BridgeNet is a desktop tool I built to make reverse tethering easier. It creates a simple GUI around [Gnirehtet](https://github.com/Genymobile/gnirehtet), allowing you to share your PC's internet connection with your Android device via USB.
 
-- 🔌 **One-Click Connection** to start/stop Gnirehtet on connected Android devices
-- 📡 **Auto-Reconnect** to maintain connection stability during outages
-- 🌐 **DNS Override & MTU Config** to fine-tune network performance
-- 📱 **ADB Device Detection** with live connection status
-- 🔧 **Custom Settings Panel** for network tweaks
-- 🧠 **Real-Time Logs** for debugging and monitoring
-- 🪟 **Built for Windows**, Linux support coming soon
+I mainly built this because using the command line (CLI) every time I wanted to connect my phone was annoying. This tool is super useful if you are in a college campus or office where the Wi-Fi is weak/restricted, but you have a stable ethernet connection on your laptop.
+
+**No Root required.**
 
 ---
 
-## 🛠️ Technologies Used
+## 🚀 Key Features
 
-- **Language & Runtime:** Python 3.11  
-- **GUI Framework:** PyQt5  
-- **ADB Integration:** Python `subprocess` & Android Debug Bridge  
-- **Reverse Tethering:** Gnirehtet CLI & Android `VpnService`  
-- **Networking:** TCP/IP, Configurable MTU/DNS  
-- **Packaging:** PyInstaller for `.exe` distribution  
-- **Monitoring:** Python `logging` + PyQt widgets  
-- **CI/CD:** GitHub Actions  
+- **No CLI Needed:** Start and stop the connection with a single button.
+- **Auto-Reconnect:** If the USB cable gets bumped or disconnected, the app tries to reconnect automatically.
+- **Configurable:** You can change the DNS server and MTU size directly from the settings if you need to bypass some network filters.
+- **Live Logs:** Shows real-time logs in the app window so you can see if the connection is actually sending data.
+- **Platform:** Currently fully functional on **Windows**. (I'm working on Linux support).
 
 ---
 
-## 🧰 Prerequisites
+## 🛠️ How it's Built
 
-Before using BridgeNet, ensure the following on your Android device:
+This project is written in **Python** using **PyQt5** for the interface.
 
-### 🔑 Enable Developer Options and USB Debugging
+- **GUI:** PyQt5
+- **Backend Logic:** Python `subprocess` (to handle ADB commands).
+- **Core Utility:** Wraps the original `gnirehtet` binary (Rust/Java) by Genymobile.
+- **Packaging:** PyInstaller (to create the standalone `.exe`).
 
-1. **Unlock Developer Options:**
-   - Navigate to `Settings > About phone`.
-   - Tap **Build number** seven times until you see a message confirming you're a developer.
+---
+
+## 🧰 Getting Started
+
+Before running the app, you just need to make sure your phone allows your PC to talk to it.
+
+### 1. Enable USB Debugging
+
+You need to unlock Developer Options on your phone:
+
+1. Navigate to `Settings > About phone`.
+2. Tap **Build number** 7 times until it says "You are a developer".
 
    ![Enable Developer Options](assets/enable_developer_options.jpg)
 
-2. **Enable USB Debugging:**
-   - Go to `Settings > System > Advanced > Developer Options`.
-   - Toggle **USB debugging** to ON.
+3. Go back to `Settings > System > Developer Options`.
+4. Turn on **USB debugging**.
 
    ![Enable USB Debugging](assets/enable_usb_debugging.jpg)
 
-> 📌 **Note:** When you connect your device to the PC for the first time, a prompt will appear asking to allow USB debugging. Ensure you check **"Always allow from this computer"** and tap **OK**.
+> **Important:** When you plug your phone in, you will get a popup asking to "Allow USB debugging?". Check the box that says **"Always allow from this computer"** and hit OK.
 
 ![Allow USB Debugging Prompt](assets/prompt.jpg)
 
-### 🚫 Disable Permission Monitoring (If Applicable)
+### 2. (Optional) Disable Permission Monitor
 
-Some Android devices, particularly Samsung models, have a feature called **App Permission Monitor** that can interfere with reverse tethering. To disable it:
+If you use a Samsung device or certain other brands, they sometimes kill background processes to save battery. If the connection keeps dropping, try this:
 
-1. Navigate to `Settings > Lock screen and security > App permission monitor`.
-2. Toggle the feature OFF or disable it for specific apps as needed.
+1. Go to `Settings > Apps` (or Security settings).
+2. Look for "App Permission Monitor" or "Battery Optimization" and disable it for the tool.
 
 ![Disable App Permission Monitor](assets/disable_permission_monitor.jpg)
 
-> 📌 **Note:** The availability and location of this setting may vary based on your device model and Android version.
-
 ---
 
-## 🔧 Setup Instructions
+## 🔧 Installation & Usage
+
+You can download the latest `.exe` from the Releases tab, or run it from the source code:
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/bridgenet-gnirehtet-gui.git
+# Clone the repo
+git clone [https://github.com/your-username/bridgenet-gnirehtet-gui.git](https://github.com/your-username/bridgenet-gnirehtet-gui.git)
 cd bridgenet-gnirehtet-gui
 
-# Install dependencies
+# Install the python libraries
 pip install -r requirements.txt
 
-# Run the GUI
+# Run the app
 python main.py
